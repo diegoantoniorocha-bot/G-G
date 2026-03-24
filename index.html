@@ -136,9 +136,61 @@
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
+            z-index: 1001;
         }
 
-        .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--text); }
+        .nav-hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(37, 40, 41, 0.98);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-copper);
+            padding: 5rem 1.5rem 2rem;
+            z-index: 999;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .mobile-menu.open { display: flex; }
+
+        .mobile-menu a {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 1.4rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-mid);
+            text-decoration: none;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            transition: color 0.2s;
+        }
+
+        .mobile-menu a:hover { color: var(--text); }
+
+        .mobile-menu a.mobile-cta {
+            margin-top: 1.25rem;
+            color: var(--bg);
+            background: var(--copper);
+            text-align: center;
+            padding: 1rem;
+            border: none;
+        }
+
+        .mobile-menu a.mobile-cta:hover { background: var(--copper-bright); }
 
         /* ── HERO ── */
         #hero {
@@ -1212,6 +1264,15 @@
     </div>
 </nav>
 
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#services" class="mobile-link">Services</a>
+    <a href="#packages" class="mobile-link">Packages</a>
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#testimonials" class="mobile-link">Clients</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+    <a href="#contact" class="mobile-cta">Free Consultation</a>
+</div>
+
 <!-- HERO -->
 <section id="hero">
     <div class="hero-bg"></div>
@@ -1662,6 +1723,25 @@
     window.addEventListener('scroll', () => {
         navbar.classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
+
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+        document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+
+    // Close menu when a link is clicked
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('open');
+            mobileMenu.classList.remove('open');
+            document.body.style.overflow = '';
+        });
+    });
 
     const revealEls = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
