@@ -1,0 +1,4 @@
+CLAUDE.md
+*.pdf
+.env
+.tmp/

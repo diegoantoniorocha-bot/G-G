@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grit &amp; Guard — Industrial Safety &amp; Risk Consulting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg:            #252829;
+            --bg-2:          #2D3032;
+            --bg-3:          #353A3C;
+            --bg-4:          #1E2022;
+            --text:          #EAE5D8;
+            --text-muted:    #8C8880;
+            --text-mid:      #C0B8AC;
+            --copper:        #BF7828;
+            --copper-bright: #D48C38;
+            --copper-deep:   #9A6020;
+            --copper-dim:    rgba(191, 120, 40, 0.14);
+            --border:        rgba(234, 229, 216, 0.07);
+            --border-copper: rgba(191, 120, 40, 0.28);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-weight: 400;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 1.4rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(37, 40, 41, 0.97);
+            backdrop-filter: blur(16px);
+            padding: 0.9rem 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            text-decoration: none;
+        }
+
+        .shield-mark { width: 34px; height: 40px; flex-shrink: 0; }
+
+        .nav-logo-text { display: flex; flex-direction: column; gap: 0; }
+
+        .nav-logo-name {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text);
+            line-height: 1.1;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 400;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-mid);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        .nav-cta {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--bg);
+            background: var(--copper);
+            padding: 0.6rem 1.5rem;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover { background: var(--copper-bright); }
+
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--text); }
+
+        /* ── HERO ── */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 3rem 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg { position: absolute; inset: 0; z-index: 0; }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: -10%; right: -5%;
+            width: 52%; height: 130%;
+            background: linear-gradient(135deg, transparent 42%, rgba(191,120,40,0.05) 42%);
+            border-left: 1px solid var(--border-copper);
+            transform: skewX(-10deg);
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 27%;
+            width: 1px; height: 100%;
+            background: linear-gradient(to bottom, transparent, var(--border-copper) 25%, transparent);
+        }
+
+        .hero-content { position: relative; z-index: 1; max-width: 1200px; }
+
+        .hero-eyebrow {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 0.76rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--copper);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeUp 0.6s ease forwards 0.3s;
+        }
+
+        .hero-eyebrow::before { content: ''; width: 36px; height: 1px; background: var(--copper); }
+
+        .hero-title {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(4.5rem, 13vw, 13rem);
+            line-height: 0.88;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-title .line { display: block; overflow: hidden; }
+
+        .hero-title .line span {
+            display: block;
+            opacity: 0;
+            transform: translateY(100%);
+            animation: slideUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero-title .line:nth-child(1) span { animation-delay: 0.5s; }
+        .hero-title .line:nth-child(2) span { animation-delay: 0.65s; color: var(--copper); }
+        .hero-title .line:nth-child(3) span { animation-delay: 0.8s; }
+
+        .hero-tagline-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 1.75rem;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards 1s;
+        }
+
+        .hero-tagline-badge span {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 1.05rem;
+            letter-spacing: 0.08em;
+            color: var(--text-mid);
+        }
+
+        .hero-tagline-badge::before,
+        .hero-tagline-badge::after { content: ''; height: 1px; width: 32px; background: var(--border-copper); }
+
+        .hero-bottom {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-top: 2.5rem;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-desc {
+            font-size: 1.05rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--text-mid);
+            max-width: 380px;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards 1.15s;
+        }
+
+        .hero-desc strong { color: var(--text); font-weight: 500; }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.25rem;
+            align-items: center;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards 1.3s;
+        }
+
+        .btn-primary {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--bg);
+            background: var(--copper);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--copper-bright);
+            transform: translateX(-100%);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-primary:hover::before { transform: translateX(0); }
+        .btn-primary span { position: relative; z-index: 1; }
+
+        .btn-ghost {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-mid);
+            text-decoration: none;
+            padding-bottom: 2px;
+            border-bottom: 1px solid var(--border);
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .btn-ghost:hover { color: var(--text); border-color: var(--text-mid); }
+
+        .hero-stats {
+            margin-top: 4.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 3.5rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards 1.45s;
+        }
+
+        .stat { display: flex; flex-direction: column; gap: 0.2rem; }
+
+        .stat-number {
+            font-family: 'Anton', sans-serif;
+            font-size: 2.2rem;
+            line-height: 1;
+            color: var(--text);
+        }
+
+        .stat-number span { color: var(--copper); }
+
+        .stat-label {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* ── SHARED ── */
+        section { padding: 7rem 3rem; }
+        .section-inner { max-width: 1200px; margin: 0 auto; }
+
+        .section-label {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--copper);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-label::before { content: ''; width: 22px; height: 1px; background: var(--copper); }
+
+        .section-title {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            text-transform: uppercase;
+            line-height: 0.9;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.75s ease, transform 0.75s ease;
+        }
+
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── SERVICES ── */
+        #services { background: var(--bg-2); }
+
+        .services-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 4rem;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .services-subtitle {
+            font-size: 1rem;
+            color: var(--text-mid);
+            max-width: 320px;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            border: 1px solid var(--border);
+        }
+
+        .service-card {
+            padding: 2.75rem;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s ease;
+            cursor: default;
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--copper);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .service-card:hover { background: var(--bg-3); }
+        .service-card:hover::after { transform: scaleX(1); }
+
+        .service-num {
+            font-family: 'Anton', sans-serif;
+            font-size: 3.5rem;
+            line-height: 1;
+            color: rgba(234, 229, 216, 0.06);
+            margin-bottom: 1.5rem;
+            user-select: none;
+            transition: color 0.3s;
+        }
+
+        .service-card:hover .service-num { color: var(--copper-dim); }
+
+        .service-name {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        .service-desc {
+            font-size: 0.97rem;
+            color: var(--text-mid);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .service-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 1.5rem;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 0.74rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .service-link::after { content: '→'; transition: transform 0.2s; }
+        .service-link:hover { color: var(--copper); }
+        .service-link:hover::after { transform: translateX(4px); }
+
+        /* ── PACKAGES / PRICING ── */
+        #packages { background: var(--bg); }
+
+        .packages-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .packages-subtitle {
+            font-size: 1rem;
+            color: var(--text-mid);
+            max-width: 380px;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .multiyear-note {
+            display: inline-flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            padding: 0.85rem 1.5rem;
+            background: var(--copper-dim);
+            border: 1px solid var(--border-copper);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--copper);
+        }
+
+        .multiyear-note span { color: var(--text-mid); font-weight: 300; text-transform: none; letter-spacing: 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.78rem; }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            border: 1px solid var(--border);
+        }
+
+        .package-card {
+            padding: 2.25rem 2rem;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: background 0.3s;
+        }
+
+        .package-card:hover { background: var(--bg-2); }
+
+        .package-card.featured {
+            background: var(--bg-2);
+            border-color: var(--border-copper);
+            z-index: 1;
+            box-shadow: 0 0 0 1px var(--border-copper);
+        }
+
+        .package-badge {
+            display: none;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 0.62rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--bg);
+            background: var(--copper);
+            padding: 0.3rem 0.75rem;
+            position: absolute;
+            top: -1px; left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+
+        .package-card.featured .package-badge { display: block; }
+
+        .package-tier {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 0.68rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--copper);
+            margin-bottom: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .package-name {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .package-tagline {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            min-height: 2.5rem;
+        }
+
+        .package-price {
+            display: flex;
+            align-items: baseline;
+            gap: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .price-amount {
+            font-family: 'Anton', sans-serif;
+            font-size: 2.4rem;
+            line-height: 1;
+            color: var(--text);
+        }
+
+        .package-card.featured .price-amount { color: var(--copper); }
+
+        .price-period {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .package-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 1.5rem 0;
+        }
+
+        .package-card.featured .package-divider { background: var(--border-copper); }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            flex: 1;
+            margin-bottom: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            font-size: 0.92rem;
+            color: var(--text-mid);
+            line-height: 1.4;
+        }
+
+        .feature-icon {
+            font-size: 0.6rem;
+            margin-top: 0.28rem;
+            flex-shrink: 0;
+            color: var(--copper);
+        }
+
+        .feature-icon.no { color: var(--text-muted); opacity: 0.4; }
+
+        .feature-label { color: var(--text-mid); font-size: 0.84rem; }
+
+        .feature-value {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .feature-item.dim .feature-value { color: var(--text-mid); font-weight: 400; }
+
+        .package-cta {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-mid);
+            text-decoration: none;
+            padding: 0.85rem 1.5rem;
+            border: 1px solid var(--border);
+            display: block;
+            text-align: center;
+            transition: all 0.2s;
+            margin-top: auto;
+        }
+
+        .package-cta:hover {
+            border-color: var(--copper);
+            color: var(--copper);
+        }
+
+        .package-card.featured .package-cta {
+            background: var(--copper);
+            color: var(--bg);
+            border-color: var(--copper);
+        }
+
+        .package-card.featured .package-cta:hover {
+            background: var(--copper-bright);
+            border-color: var(--copper-bright);
+            color: var(--bg);
+        }
+
+        /* Add-ons table */
+        .addons-wrapper {
+            margin-top: 4rem;
+        }
+
+        .addons-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .addons-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text);
+        }
+
+        .addons-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .addons-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid var(--border);
+        }
+
+        .addons-table th {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--copper);
+            padding: 1rem 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-copper);
+            background: var(--bg-4);
+        }
+
+        .addons-table td {
+            padding: 0.9rem 1.25rem;
+            font-size: 0.95rem;
+            color: var(--text-mid);
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .addons-table td:last-child {
+            color: var(--text);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+
+        .addons-table tr:last-child td { border-bottom: none; }
+        .addons-table tr:hover td { background: var(--bg-2); }
+
+        /* ── GUARANTEE ── */
+        #guarantee {
+            background: var(--bg-4);
+            padding: 5rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #guarantee::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 40px,
+                rgba(191, 120, 40, 0.02) 40px,
+                rgba(191, 120, 40, 0.02) 41px
+            );
+        }
+
+        .guarantee-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .guarantee-shield {
+            flex-shrink: 0;
+        }
+
+        .guarantee-shield svg {
+            width: 90px;
+            height: 106px;
+            opacity: 0.85;
+        }
+
+        .guarantee-title {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            text-transform: uppercase;
+            line-height: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .guarantee-title span { color: var(--copper); }
+
+        .guarantee-body {
+            font-size: 1.02rem;
+            color: var(--text-mid);
+            line-height: 1.85;
+            font-weight: 300;
+            max-width: 640px;
+        }
+
+        .guarantee-body strong { color: var(--text); font-weight: 500; }
+
+        .guarantee-tags {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .guarantee-tag {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--copper);
+            border: 1px solid var(--border-copper);
+            padding: 0.4rem 0.9rem;
+            background: var(--copper-dim);
+        }
+
+        /* ── ABOUT ── */
+        #about { background: var(--bg); }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-statement-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .about-headline {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2.2rem, 4vw, 3.8rem);
+            text-transform: uppercase;
+            line-height: 0.92;
+        }
+
+        .about-headline .copper { color: var(--copper); }
+
+        .about-headline .outline {
+            -webkit-text-stroke: 1px var(--text);
+            color: transparent;
+        }
+
+        .about-content { display: flex; flex-direction: column; gap: 1.5rem; }
+
+        .about-divider { width: 36px; height: 2px; background: var(--copper); }
+
+        .about-body {
+            font-size: 1rem;
+            color: var(--text-mid);
+            line-height: 1.85;
+            font-weight: 300;
+        }
+
+        .about-body strong { color: var(--text); font-weight: 500; }
+
+        .values-list { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 0.5rem; }
+
+        .value-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            font-size: 0.97rem;
+            color: var(--text-mid);
+            line-height: 1.6;
+        }
+
+        .value-item::before {
+            content: '';
+            width: 6px; height: 6px;
+            background: var(--copper);
+            margin-top: 0.52rem;
+            flex-shrink: 0;
+            transform: rotate(45deg);
+        }
+
+        /* ── TESTIMONIALS ── */
+        #testimonials { background: var(--bg-2); }
+
+        .testimonials-header { margin-bottom: 3rem; }
+
+        .testimonials-title {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            text-transform: uppercase;
+            line-height: 0.9;
+        }
+
+        .testimonials-track {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .testimonial-card {
+            background: var(--bg-3);
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            transition: border-color 0.3s;
+        }
+
+        .testimonial-card:hover { border-color: var(--border-copper); }
+
+        .quote-mark {
+            font-family: 'Anton', sans-serif;
+            font-size: 5rem;
+            line-height: 0.7;
+            color: var(--copper);
+            opacity: 0.22;
+            margin-bottom: 1rem;
+            display: block;
+            user-select: none;
+        }
+
+        .stars { display: flex; gap: 3px; margin-bottom: 1.25rem; }
+        .star { color: var(--copper); font-size: 0.85rem; }
+
+        .testimonial-text {
+            font-size: 0.99rem;
+            color: var(--text-mid);
+            line-height: 1.85;
+            font-weight: 300;
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .testimonial-author { display: flex; align-items: center; gap: 1rem; }
+
+        .author-avatar {
+            width: 40px; height: 40px;
+            background: var(--copper-dim);
+            border: 1px solid var(--border-copper);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 0.82rem;
+            color: var(--copper);
+            flex-shrink: 0;
+        }
+
+        .author-info { display: flex; flex-direction: column; }
+
+        .author-name {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text);
+        }
+
+        .author-role { font-size: 0.76rem; color: var(--text-muted); font-weight: 300; }
+
+        /* ── CONTACT ── */
+        #contact {
+            background: var(--bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #contact::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 40px,
+                rgba(191, 120, 40, 0.018) 40px,
+                rgba(191, 120, 40, 0.018) 41px
+            );
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-headline {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2.2rem, 4.5vw, 4rem);
+            text-transform: uppercase;
+            line-height: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-sub {
+            font-size: 1rem;
+            color: var(--text-mid);
+            line-height: 1.85;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.97rem;
+            color: var(--text-mid);
+        }
+
+        .info-label {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--copper);
+            min-width: 64px;
+        }
+
+        .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+
+        .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+        .form-label {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.97rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus { border-color: var(--copper); }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder { color: var(--text-muted); }
+
+        .form-select {
+            appearance: none;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364605A' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+        }
+
+        .form-select option { background: var(--bg-2); }
+
+        .form-textarea { height: 120px; resize: none; }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+        .btn-submit {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--bg);
+            background: var(--copper);
+            border: none;
+            padding: 1rem 2.5rem;
+            cursor: pointer;
+            align-self: flex-start;
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover { background: var(--copper-bright); }
+        .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #1E2021;
+            padding: 2.5rem 3rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+        }
+
+        .footer-brand { display: flex; flex-direction: column; gap: 0.15rem; }
+
+        .footer-name {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .footer-tagline {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-style: italic;
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            opacity: 0.55;
+        }
+
+        .footer-links { display: flex; gap: 2rem; list-style: none; }
+
+        .footer-links a {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.76rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--text); }
+
+        .footer-copy { font-size: 0.76rem; color: var(--text-muted); font-weight: 300; opacity: 0.6; }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1100px) {
+            .packages-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 960px) {
+            nav { padding: 1.25rem 1.5rem; }
+            nav.scrolled { padding: 0.85rem 1.5rem; }
+            .nav-links, .nav-cta { display: none; }
+            .nav-hamburger { display: flex; }
+            #hero { padding: 0 1.5rem 4rem; }
+            section { padding: 5rem 1.5rem; }
+            #guarantee { padding: 4rem 1.5rem; }
+            .services-grid { grid-template-columns: 1fr; }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .testimonials-track { grid-template-columns: 1fr; }
+            .packages-grid { grid-template-columns: 1fr; }
+            .hero-stats { gap: 2rem; }
+            .form-row { grid-template-columns: 1fr; }
+            footer { padding: 2rem 1.5rem; }
+            .guarantee-inner { grid-template-columns: 1fr; gap: 2rem; }
+            .guarantee-shield { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+    <a href="#" class="nav-logo">
+        <svg class="shield-mark" viewBox="0 0 60 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30 2L56 12V40C56 56 30 70 30 70C30 70 4 56 4 40V12L30 2Z" fill="#BF7828" opacity="0.15"/>
+            <path d="M30 2L56 12V40C56 56 30 70 30 70C30 70 4 56 4 40V12L30 2Z" stroke="#BF7828" stroke-width="1.5" fill="none"/>
+            <path d="M30 10L50 18V39C50 52 30 63 30 63C30 63 10 52 10 39V18L30 10Z" stroke="#BF7828" stroke-width="0.75" fill="none" opacity="0.5"/>
+            <line x1="30" y1="10" x2="30" y2="63" stroke="#BF7828" stroke-width="0.75" opacity="0.6"/>
+            <line x1="10" y1="36" x2="50" y2="36" stroke="#BF7828" stroke-width="0.75" opacity="0.6"/>
+            <polygon points="30,14 32.5,24 30,22 27.5,24" fill="#BF7828"/>
+            <polygon points="30,58 32.5,48 30,50 27.5,48" fill="#BF7828"/>
+            <polygon points="46,36 36,33.5 38,36 36,38.5" fill="#BF7828"/>
+            <polygon points="14,36 24,33.5 22,36 24,38.5" fill="#BF7828"/>
+            <circle cx="30" cy="36" r="2.5" fill="#BF7828"/>
+        </svg>
+        <div class="nav-logo-text">
+            <span class="nav-logo-name">Grit &amp; Guard</span>
+            <span class="nav-logo-sub">Industrial Safety &amp; Risk</span>
+        </div>
+    </a>
+    <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Free Consultation</a>
+    <div class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <div class="hero-eyebrow">Industrial Safety &amp; Risk Consulting</div>
+        <h1 class="hero-title">
+            <div class="line"><span>Grit</span></div>
+            <div class="line"><span style="color:var(--copper)">&amp;</span></div>
+            <div class="line"><span>Guard</span></div>
+        </h1>
+        <div class="hero-tagline-badge">
+            <span>Safety without the sugarcoat.</span>
+        </div>
+        <div class="hero-bottom">
+            <p class="hero-desc">
+                <strong>No fluff. No filler. Just honest safety consulting</strong> that protects your workforce, keeps you compliant, and actually gets implemented on the floor.
+            </p>
+            <div class="hero-actions">
+                <a href="#packages" class="btn-primary"><span>View Packages</span></a>
+                <a href="#services" class="btn-ghost">Our Services</a>
+            </div>
+        </div>
+    </div>
+    <div class="hero-stats">
+        <div class="stat">
+            <span class="stat-number">15<span>+</span></span>
+            <span class="stat-label">Years in the Field</span>
+        </div>
+        <div class="stat">
+            <span class="stat-number">200<span>+</span></span>
+            <span class="stat-label">Worksites Assessed</span>
+        </div>
+        <div class="stat">
+            <span class="stat-number">100<span>%</span></span>
+            <span class="stat-label">OSHA Audit Pass Rate</span>
+        </div>
+        <div class="stat">
+            <span class="stat-number">0</span>
+            <span class="stat-label">Sugarcoating</span>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+    <div class="section-inner">
+        <div class="services-header reveal">
+            <div>
+                <div class="section-label">What We Do</div>
+                <h2 class="section-title">Our<br>Services</h2>
+            </div>
+            <p class="services-subtitle">Straightforward safety solutions for industries where the stakes are real and the margin for error is zero.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-num">01</div>
+                <h3 class="service-name">Safety Audits &amp; Inspections</h3>
+                <p class="service-desc">On-site evaluations that uncover real hazards — not just the ones on a checklist. We walk the floor, talk to your crew, and deliver a frank assessment with a clear action plan.</p>
+                <a href="#contact" class="service-link">Get Started</a>
+            </div>
+            <div class="service-card reveal" style="transition-delay:0.1s">
+                <div class="service-num">02</div>
+                <h3 class="service-name">OSHA Compliance Consulting</h3>
+                <p class="service-desc">Navigate federal and state OSHA regulations without the guesswork. We translate the standards into practical steps that keep your operation compliant and your team protected.</p>
+                <a href="#contact" class="service-link">Get Started</a>
+            </div>
+            <div class="service-card reveal" style="transition-delay:0.2s">
+                <div class="service-num">03</div>
+                <h3 class="service-name">Risk Assessment &amp; Management</h3>
+                <p class="service-desc">Systematic identification, analysis, and control of workplace hazards. We build risk management programs that hold up under pressure — and under scrutiny.</p>
+                <a href="#contact" class="service-link">Get Started</a>
+            </div>
+            <div class="service-card reveal" style="transition-delay:0.3s">
+                <div class="service-num">04</div>
+                <h3 class="service-name">Safety Training Programs</h3>
+                <p class="service-desc">Hands-on, no-nonsense training built for the people who actually do the job. From hazard recognition to emergency response — delivered in English and Spanish.</p>
+                <a href="#contact" class="service-link">Get Started</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PACKAGES -->
+<section id="packages">
+    <div class="section-inner">
+        <div class="packages-header reveal">
+            <div>
+                <div class="section-label">Partnership Packages</div>
+                <h2 class="section-title">Safety Plans<br>Built to Scale</h2>
+            </div>
+            <p class="packages-subtitle">Scalable safety compliance solutions tailored to your business size, complexity, and OSHA risk profile. No surprises, no fine print.</p>
+        </div>
+        <div class="multiyear-note reveal">
+            Save 10% with a 3-year plan &nbsp;·&nbsp; Save 15% with a 5-year plan
+            <span>Ask about multi-site and franchise discounts.</span>
+        </div>
+        <div class="packages-grid reveal">
+
+            <!-- GG Essential -->
+            <div class="package-card">
+                <div class="package-tier">Tier 01</div>
+                <div class="package-name">GG Essential</div>
+                <div class="package-tagline">For small teams who need real compliance support.</div>
+                <div class="package-price">
+                    <span class="price-amount">$7,950</span>
+                    <span class="price-period">/yr</span>
+                </div>
+                <div class="package-divider"></div>
+                <div class="feature-list">
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Locations: </span><span class="feature-value">1</span></span></div>
+                    <div class="feature-item dim"><span class="feature-icon no">◆</span><span><span class="feature-label">On-Site Days: </span><span class="feature-value">Not Included</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Custom OSHA Programs: </span><span class="feature-value">1 Set*</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Training Hours: </span><span class="feature-value">10 hrs</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Orientation Video: </span><span class="feature-value">Standard</span></span></div>
+                    <div class="feature-item dim"><span class="feature-icon no">◆</span><span><span class="feature-label">Abatement Assistance: </span><span class="feature-value">Not Included</span></span></div>
+                    <div class="feature-item dim"><span class="feature-icon no">◆</span><span><span class="feature-label">PreQual Sites: </span><span class="feature-value">Not Included</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Phone &amp; Email Support: </span><span class="feature-value">Included</span></span></div>
+                </div>
+                <a href="#contact" class="package-cta">Get Started</a>
+            </div>
+
+            <!-- GG Field Ready (featured) -->
+            <div class="package-card featured">
+                <div class="package-badge">Most Popular</div>
+                <div class="package-tier">Tier 02</div>
+                <div class="package-name">GG Field Ready</div>
+                <div class="package-tagline">For growing companies ready to get OSHA-serious.</div>
+                <div class="package-price">
+                    <span class="price-amount">$14,950</span>
+                    <span class="price-period">/yr</span>
+                </div>
+                <div class="package-divider"></div>
+                <div class="feature-list">
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Locations: </span><span class="feature-value">1</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">On-Site Days: </span><span class="feature-value">2 Days</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Custom OSHA Programs: </span><span class="feature-value">1 Set</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Training Hours: </span><span class="feature-value">30 hrs</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Orientation Video: </span><span class="feature-value">Standard</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Abatement Assistance: </span><span class="feature-value">Included</span></span></div>
+                    <div class="feature-item dim"><span class="feature-icon no">◆</span><span><span class="feature-label">PreQual Sites: </span><span class="feature-value">Not Included</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Phone &amp; Email Support: </span><span class="feature-value">Included</span></span></div>
+                </div>
+                <a href="#contact" class="package-cta">Get Started</a>
+            </div>
+
+            <!-- GG Multi-Site -->
+            <div class="package-card">
+                <div class="package-tier">Tier 03</div>
+                <div class="package-name">GG Multi-Site</div>
+                <div class="package-tagline">For multi-site operations seeking proactive coverage.</div>
+                <div class="package-price">
+                    <span class="price-amount">$34,950</span>
+                    <span class="price-period">/yr</span>
+                </div>
+                <div class="package-divider"></div>
+                <div class="feature-list">
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Locations: </span><span class="feature-value">Up to 3</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">On-Site Days: </span><span class="feature-value">6 Days</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Custom OSHA Programs: </span><span class="feature-value">1 Set / Location</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Training Hours: </span><span class="feature-value">90 hrs</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Orientation Video: </span><span class="feature-value">Custom</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Abatement Assistance: </span><span class="feature-value">Included</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">PreQual Sites: </span><span class="feature-value">Up to 2</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Phone &amp; Email Support: </span><span class="feature-value">Included</span></span></div>
+                </div>
+                <a href="#contact" class="package-cta">Get Started</a>
+            </div>
+
+            <!-- GG Full Shield -->
+            <div class="package-card">
+                <div class="package-tier">Tier 04</div>
+                <div class="package-name">GG Full Shield</div>
+                <div class="package-tagline">For large-scale operations that demand total protection.</div>
+                <div class="package-price">
+                    <span class="price-amount">$149,950</span>
+                    <span class="price-period">/yr</span>
+                </div>
+                <div class="package-divider"></div>
+                <div class="feature-list">
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Locations: </span><span class="feature-value">Up to 5</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">On-Site Days: </span><span class="feature-value">24 Days</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Custom OSHA Programs: </span><span class="feature-value">1 Set / Location</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Training Hours: </span><span class="feature-value">180 hrs</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Orientation Video: </span><span class="feature-value">Custom</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Abatement Assistance: </span><span class="feature-value">Included</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">PreQual Sites: </span><span class="feature-value">Up to 4</span></span></div>
+                    <div class="feature-item"><span class="feature-icon">◆</span><span><span class="feature-label">Phone &amp; Email Support: </span><span class="feature-value">Included</span></span></div>
+                </div>
+                <a href="#contact" class="package-cta">Get Started</a>
+            </div>
+        </div>
+
+        <!-- Add-Ons -->
+        <div class="addons-wrapper reveal">
+            <div class="addons-header">
+                <span class="addons-title">Add-On Services</span>
+                <span class="addons-note">Available with any package. Contact us to discuss your needs.</span>
+            </div>
+            <table class="addons-table">
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Notes</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Additional Location</td>
+                        <td>Added to any existing package</td>
+                        <td>$2,500 – $8,000</td>
+                    </tr>
+                    <tr>
+                        <td>OSHA Abatement Assistance</td>
+                        <td>GG Essential add-on</td>
+                        <td>$2,500</td>
+                    </tr>
+                    <tr>
+                        <td>Custom Program Development</td>
+                        <td>GG Essential add-on</td>
+                        <td>$2,500</td>
+                    </tr>
+                    <tr>
+                        <td>PreQual Assistance</td>
+                        <td>GG Essential &amp; GG Field Ready</td>
+                        <td>$1,800 / site</td>
+                    </tr>
+                    <tr>
+                        <td>Additional On-Site Day</td>
+                        <td>Any package</td>
+                        <td>$1,950 / day</td>
+                    </tr>
+                    <tr>
+                        <td>Safety Committee Facilitation</td>
+                        <td>Any package</td>
+                        <td>$1,200</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top:1rem; font-size:0.76rem; color:var(--text-muted);">* Custom OSHA programs included in GG Essential for a limited time.</p>
+        </div>
+    </div>
+</section>
+
+<!-- GUARANTEE -->
+<section id="guarantee" style="padding: 5rem 3rem;">
+    <div class="guarantee-inner reveal">
+        <div class="guarantee-shield">
+            <svg viewBox="0 0 60 72" fill="none" xmlns="http://www.w3.org/2000/svg" width="90" height="108">
+                <path d="M30 2L56 12V40C56 56 30 70 30 70C30 70 4 56 4 40V12L30 2Z" fill="#BF7828" opacity="0.2"/>
+                <path d="M30 2L56 12V40C56 56 30 70 30 70C30 70 4 56 4 40V12L30 2Z" stroke="#BF7828" stroke-width="1.5" fill="none"/>
+                <path d="M30 10L50 18V39C50 52 30 63 30 63C30 63 10 52 10 39V18L30 10Z" stroke="#BF7828" stroke-width="0.75" fill="none" opacity="0.5"/>
+                <line x1="30" y1="10" x2="30" y2="63" stroke="#BF7828" stroke-width="0.75" opacity="0.6"/>
+                <line x1="10" y1="36" x2="50" y2="36" stroke="#BF7828" stroke-width="0.75" opacity="0.6"/>
+                <polygon points="30,14 32.5,24 30,22 27.5,24" fill="#BF7828"/>
+                <polygon points="30,58 32.5,48 30,50 27.5,48" fill="#BF7828"/>
+                <polygon points="46,36 36,33.5 38,36 36,38.5" fill="#BF7828"/>
+                <polygon points="14,36 24,33.5 22,36 24,38.5" fill="#BF7828"/>
+                <circle cx="30" cy="36" r="2.5" fill="#BF7828"/>
+            </svg>
+        </div>
+        <div class="guarantee-content">
+            <h2 class="guarantee-title">The Grit <span>Guarantee</span></h2>
+            <p class="guarantee-body">
+                We stand behind our work — completely. If you're not satisfied with the value we've delivered within the first <strong>30 days</strong> of your partnership, we'll refund your investment. No runaround, no fine print. Unlike workplace hazards, working with Grit &amp; Guard is <strong>zero risk</strong>. Simply reach out and we'll make it right.
+            </p>
+            <div class="guarantee-tags">
+                <span class="guarantee-tag">100% Money Back</span>
+                <span class="guarantee-tag">30-Day Window</span>
+                <span class="guarantee-tag">No Questions Asked</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+    <div class="section-inner">
+        <div class="about-grid">
+            <div class="about-statement-left reveal">
+                <h2 class="about-headline">
+                    Real Talk.<br>
+                    <span class="copper">Real Safety.</span><br>
+                    <span class="outline">No Excuses.</span>
+                </h2>
+                <div style="display:flex; flex-direction:column; gap:0.3rem;">
+                    <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--copper);">Diego Rocha</div>
+                    <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.82rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted);">Owner &amp; Lead Consultant</div>
+                </div>
+            </div>
+            <div class="about-content reveal" style="transition-delay:0.15s">
+                <div class="section-label">About</div>
+                <div class="about-divider"></div>
+                <p class="about-body">
+                    <strong>Grit &amp; Guard</strong> was founded by Diego Rocha — a safety professional who spent years in the field watching companies pay lip service to workplace safety while workers got hurt. That ends here.
+                </p>
+                <p class="about-body">
+                    We don't write reports that sit on shelves. We partner with businesses that are serious about <strong>building a real safety culture</strong> — one that protects people, reduces liability, and holds up when OSHA comes knocking.
+                </p>
+                <div class="values-list">
+                    <div class="value-item">Direct assessments with no corporate spin</div>
+                    <div class="value-item">Deep expertise across construction, manufacturing &amp; logistics</div>
+                    <div class="value-item">Bilingual consulting — English &amp; Spanish</div>
+                    <div class="value-item">Consulting built for small and mid-size operations</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+    <div class="section-inner">
+        <div class="testimonials-header reveal">
+            <div class="section-label">Client Feedback</div>
+            <h2 class="testimonials-title">What They<br>Say</h2>
+        </div>
+        <div class="testimonials-track">
+            <div class="testimonial-card reveal">
+                <span class="quote-mark">"</span>
+                <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+                <p class="testimonial-text">Diego walked our facility and found three violations our previous safety consultant had missed for years. Straight shooter, no fluff — exactly what we needed before our OSHA inspection.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">JM</div>
+                    <div class="author-info">
+                        <span class="author-name">James M.</span>
+                        <span class="author-role">Operations Manager, Steel Fabrication</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card reveal" style="transition-delay:0.1s">
+                <span class="quote-mark">"</span>
+                <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+                <p class="testimonial-text">The training he ran for our crew actually stuck. Not the usual PowerPoint-and-sign-your-name deal. Real scenarios, real conversation. Our incident rate dropped 40% within six months.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">RC</div>
+                    <div class="author-info">
+                        <span class="author-name">Rosa C.</span>
+                        <span class="author-role">Safety Director, General Contractor</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card reveal" style="transition-delay:0.2s">
+                <span class="quote-mark">"</span>
+                <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+                <p class="testimonial-text">We were facing a potential shutdown after a near-miss incident. Grit &amp; Guard came in fast, built a corrective action plan, and we came out of the OSHA review clean. Worth every dollar.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">TW</div>
+                    <div class="author-info">
+                        <span class="author-name">Tom W.</span>
+                        <span class="author-role">Owner, Warehouse &amp; Distribution</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+    <div class="section-inner">
+        <div class="contact-grid">
+            <div class="reveal">
+                <div class="section-label">Get in Touch</div>
+                <h2 class="contact-headline">Let's Talk<br>About Your<br>Worksite</h2>
+                <p class="contact-sub">First consultation is free. No sales pitch — just an honest conversation about where your safety program stands and what it actually needs.</p>
+                <div class="contact-info">
+                    <div class="contact-info-item">
+                        <span class="info-label">Phone</span>
+                        <span>(909) 636-2727</span>
+                    </div>
+                    <div class="contact-info-item">
+                        <span class="info-label">Email</span>
+                        <span>d.rocha@gritandguard.com</span>
+                    </div>
+                    <div class="contact-info-item">
+                        <span class="info-label">Web</span>
+                        <span>www.gritandguard.com</span>
+                    </div>
+                    <div class="contact-info-item">
+                        <span class="info-label">Lead</span>
+                        <span>Diego Rocha, Owner / Lead Consultant</span>
+                    </div>
+                </div>
+            </div>
+            <div class="reveal" style="transition-delay:0.15s">
+                <form class="contact-form" id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-input" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-input" placeholder="Smith" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" placeholder="john@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone</label>
+                        <input type="tel" class="form-input" placeholder="(555) 000-0000">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Package Interest</label>
+                        <select class="form-select">
+                            <option value="" disabled selected>Select a package</option>
+                            <option>GG Essential — $7,950/yr</option>
+                            <option>GG Field Ready — $14,950/yr</option>
+                            <option>GG Multi-Site — $34,950/yr</option>
+                            <option>GG Full Shield — $149,950/yr</option>
+                            <option>Custom / Add-On Services</option>
+                            <option>General Inquiry</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tell Us About Your Worksite</label>
+                        <textarea class="form-textarea" placeholder="Industry, number of employees, locations, current safety concerns..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit" id="submitBtn">Send Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <span class="footer-name">Grit &amp; Guard</span>
+            <span class="footer-tagline">Safety without the sugarcoat.</span>
+        </div>
+        <ul class="footer-links">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#packages">Packages</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <span class="footer-copy">&copy; 2026 Grit &amp; Guard. All rights reserved.</span>
+    </div>
+</footer>
+
+<script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        btn.textContent = 'Request Sent ✓';
+        btn.style.background = '#3a6a3a';
+        btn.disabled = true;
+    });
+</script>
+</body>
+</html>
