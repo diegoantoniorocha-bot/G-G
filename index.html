@@ -1602,24 +1602,24 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">First Name</label>
-                            <input type="text" class="form-input" placeholder="John" required>
+                            <input type="text" class="form-input" name="first_name" placeholder="John" required>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Last Name</label>
-                            <input type="text" class="form-input" placeholder="Smith" required>
+                            <input type="text" class="form-input" name="last_name" placeholder="Smith" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Email</label>
-                        <input type="email" class="form-input" placeholder="john@company.com" required>
+                        <input type="email" class="form-input" name="email" placeholder="john@company.com" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Phone</label>
-                        <input type="tel" class="form-input" placeholder="(555) 000-0000">
+                        <input type="tel" class="form-input" name="phone" placeholder="(555) 000-0000">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Package Interest</label>
-                        <select class="form-select">
+                        <select class="form-select" name="package">
                             <option value="" disabled selected>Select a package</option>
                             <option>GG Essential — $7,950/yr</option>
                             <option>GG Field Ready — $14,950/yr</option>
@@ -1631,7 +1631,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Tell Us About Your Worksite</label>
-                        <textarea class="form-textarea" placeholder="Industry, number of employees, locations, current safety concerns..."></textarea>
+                        <textarea class="form-textarea" name="message" placeholder="Industry, number of employees, locations, current safety concerns..."></textarea>
                     </div>
                     <button type="submit" class="btn-submit" id="submitBtn">Send Request</button>
                 </form>
