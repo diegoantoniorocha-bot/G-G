@@ -387,6 +387,182 @@
             color: var(--text-muted);
         }
 
+        /* ── COST OF WAITING ── */
+        #cost {
+            background: var(--bg-4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #cost::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 40px,
+                rgba(191, 120, 40, 0.025) 40px,
+                rgba(191, 120, 40, 0.025) 41px
+            );
+        }
+
+        .cost-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cost-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .cost-headline {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            text-transform: uppercase;
+            line-height: 0.9;
+        }
+
+        .cost-headline span { color: var(--copper); }
+
+        .cost-body {
+            font-size: 1rem;
+            color: var(--text-mid);
+            line-height: 1.85;
+            font-weight: 300;
+        }
+
+        .cost-body strong { color: var(--text); font-weight: 500; }
+
+        .cost-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            border: 1px solid var(--border-copper);
+        }
+
+        .cost-stat {
+            padding: 2.5rem 2rem;
+            border: 1px solid var(--border-copper);
+            position: relative;
+            text-align: center;
+        }
+
+        .cost-stat-amount {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            line-height: 1;
+            color: var(--copper);
+            margin-bottom: 0.5rem;
+        }
+
+        .cost-stat-label {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .cost-stat-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        .cost-cta-strip {
+            margin-top: 3rem;
+            padding: 2rem 2.5rem;
+            background: var(--copper-dim);
+            border: 1px solid var(--border-copper);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .cost-cta-text {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text);
+        }
+
+        .cost-cta-text span { color: var(--copper); }
+
+        /* ── HOW IT WORKS ── */
+        #howitworks { background: var(--bg-2); }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            margin-top: 3rem;
+            border: 1px solid var(--border);
+        }
+
+        .step {
+            padding: 2.75rem 2.5rem;
+            border: 1px solid var(--border);
+            position: relative;
+            transition: background 0.3s;
+        }
+
+        .step:hover { background: var(--bg-3); }
+
+        .step-num {
+            font-family: 'Anton', sans-serif;
+            font-size: 4rem;
+            line-height: 1;
+            color: var(--copper);
+            opacity: 0.2;
+            margin-bottom: 1.25rem;
+            user-select: none;
+            transition: opacity 0.3s;
+        }
+
+        .step:hover .step-num { opacity: 0.4; }
+
+        .step-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text);
+            margin-bottom: 0.75rem;
+        }
+
+        .step-desc {
+            font-size: 0.97rem;
+            color: var(--text-mid);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .step-connector {
+            position: absolute;
+            top: 50%;
+            right: -1px;
+            width: 2px;
+            height: 40%;
+            background: var(--copper);
+            opacity: 0.3;
+            transform: translateY(-50%);
+        }
+
+        .step:last-child .step-connector { display: none; }
+
         /* ── SHARED ── */
         section { padding: 7rem 3rem; scroll-margin-top: 70px; }
         .section-inner { max-width: 1200px; margin: 0 auto; }
@@ -1227,6 +1403,10 @@
             footer { padding: 2rem 1.5rem; }
             .guarantee-inner { grid-template-columns: 1fr; gap: 2rem; }
             .guarantee-shield { display: none; }
+            .cost-header { grid-template-columns: 1fr; gap: 2rem; }
+            .cost-stats { grid-template-columns: 1fr; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .step-connector { display: none; }
         }
     </style>
 </head>
@@ -1350,6 +1530,71 @@
                 <h3 class="service-name">Safety Training Programs</h3>
                 <p class="service-desc">Hands-on, no-nonsense training built for the people who actually do the job. From hazard recognition to emergency response — delivered in English and Spanish.</p>
                 <a href="#contact" class="service-link">Get Started</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- COST OF WAITING -->
+<section id="cost">
+    <div class="section-inner cost-inner">
+        <div class="cost-header reveal">
+            <div>
+                <div class="section-label">The Real Risk</div>
+                <h2 class="cost-headline">The Cost of<br><span>Doing Nothing</span></h2>
+            </div>
+            <p class="cost-body">
+                Most companies don't invest in safety consulting until after an incident. By then, the damage is done — fines issued, workers hurt, reputation hit. <strong>The question isn't whether you can afford safety consulting. It's whether you can afford not to have it.</strong>
+            </p>
+        </div>
+        <div class="cost-stats reveal">
+            <div class="cost-stat">
+                <div class="cost-stat-amount">$16,550</div>
+                <div class="cost-stat-label">Per OSHA Serious Violation</div>
+                <div class="cost-stat-note">Maximum penalty per citation for serious workplace safety violations</div>
+            </div>
+            <div class="cost-stat">
+                <div class="cost-stat-amount">$165,514</div>
+                <div class="cost-stat-label">Per Willful or Repeat Violation</div>
+                <div class="cost-stat-note">Maximum penalty for willful or repeat violations — per incident</div>
+            </div>
+            <div class="cost-stat">
+                <div class="cost-stat-amount">$40,000+</div>
+                <div class="cost-stat-label">Average Workplace Injury Cost</div>
+                <div class="cost-stat-note">Direct and indirect costs per injury including workers' comp and lost productivity</div>
+            </div>
+        </div>
+        <div class="cost-cta-strip reveal">
+            <span class="cost-cta-text">Our entry package starts at <span>$7,950/yr</span> — a fraction of a single OSHA fine.</span>
+            <a href="#packages" class="btn-primary"><span>View Packages</span></a>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="howitworks">
+    <div class="section-inner">
+        <div class="reveal">
+            <div class="section-label">Getting Started</div>
+            <h2 class="section-title">Three Steps<br>to a Safer<br>Worksite</h2>
+        </div>
+        <div class="steps-grid">
+            <div class="step reveal" style="transition-delay:0.1s">
+                <div class="step-num">01</div>
+                <div class="step-title">Free Consultation</div>
+                <p class="step-desc">We start with a no-pressure conversation about your operation — your industry, headcount, locations, and current safety concerns. No commitment, no pitch. Just an honest assessment of where you stand.</p>
+                <div class="step-connector"></div>
+            </div>
+            <div class="step reveal" style="transition-delay:0.2s">
+                <div class="step-num">02</div>
+                <div class="step-title">On-Site Assessment</div>
+                <p class="step-desc">We come to your worksite, walk the floor with your team, and identify real hazards — not just checklist items. You get a frank, prioritized report with clear action items and zero corporate jargon.</p>
+                <div class="step-connector"></div>
+            </div>
+            <div class="step reveal" style="transition-delay:0.3s">
+                <div class="step-num">03</div>
+                <div class="step-title">Build &amp; Execute</div>
+                <p class="step-desc">We build your custom safety program, train your team, and stay in your corner throughout the year. OSHA audit coming up? Incident response needed? We're a phone call away — always.</p>
             </div>
         </div>
     </div>
